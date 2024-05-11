@@ -1,13 +1,5 @@
 #include <SDL2/SDL.h>
-
 #include <iostream>
-
-#include "glm/glm.hpp"
-#include "imgui/imgui.h"
-#include "stb/stb_image.h"
-#include "tiny_obj_loader.h"
-#include "VkBootstrap.h"
-
 
 int main(int /*argc*/, char** /*argv[]*/) {
 
