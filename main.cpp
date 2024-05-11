@@ -3,6 +3,15 @@
 
 #include "App.hpp"
 
+#if 0
+
+Global TODO:
+    [ ] Clean up how the dependencies are managed -- i dont think I need to include the source. ==
+    [ ] Finish constructinng the app class (windowing, eventmanager, renderer)
+    [ ] vkguide.dev start
+    
+#endif
+
 int main(int /*argc*/, char** /*argv[]*/) {
 
     App app;

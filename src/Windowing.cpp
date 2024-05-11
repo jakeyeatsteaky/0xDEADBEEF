@@ -22,7 +22,7 @@ bool Window::Init()
                                 800,
                                 600,
                                 SDL_WINDOW_SHOWN);
-    if(nullptr == window) {
+    if(nullptr == window) { 
         ERR("Failed to create SDL window", SDL_GetError());
         return false;
     }
