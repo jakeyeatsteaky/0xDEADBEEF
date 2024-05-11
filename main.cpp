@@ -1,7 +1,24 @@
 #include <SDL2/SDL.h>
-#include <iostream>
+#include "Logger.hpp"
+
+#include "App.hpp"
 
 int main(int /*argc*/, char** /*argv[]*/) {
+
+    App app;
+
+    try {
+        app.Run();
+    } catch (const std::runtime_error& e)  {
+        const char* error = e.what();
+        ERR("Runtime error has occured", e.what());
+        return -1;
+    } catch (const std::exception& e) {
+        ERR("Exception has occured", e.what());
+        return -2;
+    }
+
+    return 0;
 
     if (SDL_Init(SDL_INIT_VIDEO) != 0) {
         std::cerr << "Could not initialize SDL " << SDL_GetError() << std::endl;
