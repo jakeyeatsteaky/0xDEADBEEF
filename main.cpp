@@ -3,16 +3,6 @@
 
 #include "App.hpp"
 
-#if 0
-
-Global TODO:
-    [ ] Clean up how the dependencies are managed -- i dont think I need to include the source. ==
-    [x] Finish constructinng the app class (windowing, eventmanager)
-    [ ] vkguide.dev start
-    [ ] construct renderer object for vulkan stuffs
-    
-#endif
-
 int main(int /*argc*/, char** /*argv[]*/) {
 
     App app;
