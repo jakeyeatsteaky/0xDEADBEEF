@@ -15,20 +15,37 @@ endif()
 
 set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -DDEBUG")
 
-include_directories(${PROJECT_SOURCE_DIR}/include)
+# Including directories
+include_directories(${PROJECT_SOURCE_DIR}/include
+                    ${PROJECT_SOURCE_DIR}/third_party
+                    ${PROJECT_SOURCE_DIR}/third_party/vk-bootstrap/src
+                    ${PROJECT_SOURCE_DIR}/third_party/tinyobjloader)
+
+message(STATUS "Building Lib: VMA")
+add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/VulkanMemoryAllocator)
+message(STATUS "Building Lib: GLM")
+add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/glm)
+message(STATUS "Building Lib: TinyOBJLoader")
+add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/tinyobjloader)
+message(STATUS "Building Lib: VkBootstrap")
+set_directory_properties(PROPERTIES DIRECTORY ${PROJECT_SOURCE_DIR}/third_party/vk-bootstrap
+                       COMPILE_OPTIONS "-w")
+add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/vk-bootstrap)
+message(STATUS "Building Lib: fastGLTF")
+add_subdirectory(${PROJECT_SOURCE_DIR}/third_party/fastgltf)
+
+include_directories(${SDL2_INCLUDE_DIRS} ${Vulkan_INCLUDE_DIRS})
 
 find_package(SDL2 REQUIRED)
 find_package(Vulkan REQUIRED)
 
-include_directories(${SDL2_INCLUDE_DIRS})
-include_directories(${Vulkan_INCLUDE_DIRS})
-
+# File globbing for sources and headers
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 file(GLOB_RECURSE HEADERS "include/*.hpp" "include/*.h")
 
-# Update the add_executable to correctly reference main.cpp now located in src/
+# Update the add_executable to correctly reference all source files and headers
 add_executable(${project_name} main.cpp ${SOURCES} ${HEADERS})
 
 target_include_directories(${PROJECT_NAME} PRIVATE include)
 
-target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES} ${Vulkan_LIBRARIES})
+target_link_libraries(${project_name} ${SDL2_LIBRARIES} ${Vulkan_LIBRARIES} GPUOpen::VulkanMemoryAllocator glm::glm )

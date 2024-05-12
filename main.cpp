@@ -1,36 +1,32 @@
-#include <SDL.h>
-#include <iostream>
+#include <SDL2/SDL.h>
+#include "Logger.hpp"
 
+#include "App.hpp"
+
+#if 0
+
+Global TODO:
+    [ ] Clean up how the dependencies are managed -- i dont think I need to include the source. ==
+    [x] Finish constructinng the app class (windowing, eventmanager)
+    [ ] vkguide.dev start
+    [ ] construct renderer object for vulkan stuffs
+    
+#endif
 
 int main(int /*argc*/, char** /*argv[]*/) {
 
-    if (SDL_Init(SDL_INIT_VIDEO) != 0) {
-        std::cerr << "Could not initialize SDL " << SDL_GetError() << std::endl;
-        return 1;
-    }
+    App app;
 
-    SDL_Window *window = SDL_CreateWindow("0xDEADBEEF",
-                                          SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
-                                          640, 480,
-                                          SDL_WINDOW_SHOWN);
-    if (window == nullptr) {
-        std::cerr << "SDL_CreateWindow Error: " << SDL_GetError() << std::endl;
-        SDL_Quit();
-        return 1;
+    try {
+        app.Run();
+    } catch (const std::runtime_error& e)  {
+        const char* error = e.what();
+        ERR("Runtime error has occured", e.what());
+        return -1;
+    } catch (const std::exception& e) {
+        ERR("Exception has occured", e.what());
+        return -2;
     }
-
-    SDL_Event event;
-    bool running = true;
-    while (running) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
-                running = false;
-            }
-        }
-    }
-
-    SDL_DestroyWindow(window);
-    SDL_Quit();
 
     return 0;
 }
