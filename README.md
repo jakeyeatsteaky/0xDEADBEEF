@@ -1,5 +1,5 @@
-# 0xDEADBEEF Rendering Engine
-## Platform: VULKAN - C++ - SDL2
+# Windowed Application using SDL
+## Platform: C++ - SDL2
 
 ### Dependencies:
 - **GLM:** [https://github.com/g-truc/glm](https://github.com/g-truc/glm)
